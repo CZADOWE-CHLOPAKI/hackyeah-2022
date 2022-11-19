@@ -5,7 +5,7 @@ const HomePage = () => {
   const [files, setFiles] = useState<File[]>();
 
   return (
-    <div className='grid h-screen w-screen place-content-center bg-background'>
+    <div className='grid h-screen w-screen place-content-center bg-background font-primary'>
       <div>
         <p>Dodaj plik do druku</p>
         <p></p>
@@ -13,11 +13,13 @@ const HomePage = () => {
       <Dropzone onDrop={(acceptedFiles) => setFiles(acceptedFiles)}>
         {({ getRootProps, getInputProps }) => (
           <div
-            className='h-60 w-96  border-4 border-dashed border-borders'
+            className='grid h-60 w-96 cursor-crosshair  place-content-center border-4 border-dashed border-borders shadow-md'
             {...getRootProps()}
           >
             <input {...getInputProps()} />
-            <p>Drag 'n' drop some files here, or click to select files</p>
+
+            {!files && <div className='text-7xl'>+</div>}
+
             <div>
               {files?.map((file, key) => (
                 <div key={key}>{file.name}</div>

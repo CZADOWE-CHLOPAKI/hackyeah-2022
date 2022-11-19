@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 @layer base {
-  @font-face {
-    font-family: 'Open Sans', sans-serif;
-    font-style: normal;
-  }
+  /* @font-face { */
+    /* font-family: 'Open Sans', sans-serif; */
+    /* font-style: normal; */
+  /* } */
 
   .cursor-newtab {
     cursor: url('/images/new-tab.png') 10 10, pointer;
