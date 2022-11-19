@@ -6,6 +6,7 @@ const HomePage = () => {
 
   return (
     <div className='grid h-screen w-screen place-content-center bg-background'>
+      <div></div>
       <Dropzone onDrop={(acceptedFiles) => setFiles(acceptedFiles)}>
         {({ getRootProps, getInputProps }) => (
           <div
