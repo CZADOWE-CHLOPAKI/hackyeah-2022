@@ -6,7 +6,10 @@ const HomePage = () => {
 
   return (
     <div className='grid h-screen w-screen place-content-center bg-background'>
-      <div></div>
+      <div>
+        <p>Dodaj plik do druku</p>
+        <p></p>
+      </div>
       <Dropzone onDrop={(acceptedFiles) => setFiles(acceptedFiles)}>
         {({ getRootProps, getInputProps }) => (
           <div
