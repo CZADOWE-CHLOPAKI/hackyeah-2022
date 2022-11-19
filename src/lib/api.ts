@@ -1,6 +1,6 @@
 const env = process.env.NODE_ENV;
 
-let baseUrl = ''; //TODO ADD PROD URL
+let baseUrl = 'http://localhost:8000'; //TODO ADD PROD URL
 if (env == 'development') {
   baseUrl = 'http://localhost:8000';
 }

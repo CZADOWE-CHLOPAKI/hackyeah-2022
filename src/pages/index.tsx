@@ -18,7 +18,7 @@ const HomePage = () => {
           <p>Dodaj plik do druku</p>
           <p></p>
         </div>
-        <AddFile files={files} addFiles={(f) => setFiles(f)} />
+        <AddFile files={files} setFiles={(f) => setFiles(f)} />
         <PdfTiles onChange={(pdf) => setChosenPdf(pdf)} pdfs={[]} />
         <PdfViewer pdf={files[0]} />
       </div>

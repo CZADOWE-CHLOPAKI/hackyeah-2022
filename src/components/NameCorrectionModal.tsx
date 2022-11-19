@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
@@ -14,9 +15,24 @@ type NameCorrectionModalProps = {
   onCancel?: () => void;
 };
 
-const NameCorrectionModal = ({ data }: NameCorrectionModalProps) => {
+const NameCorrectionModal = ({
+  data,
+  onCancel,
+  onNewName,
+}: NameCorrectionModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [newName, setNewName] = useState(data?.correctFName || '');
+  const [penToggled, setPenToggled] = useState(false);
+
+  const cancel = () => {
+    setIsOpen(false);
+    onCancel?.();
+  };
+
+  const ok = () => {
+    setIsOpen(false);
+    onNewName?.(newName);
+  };
 
   useEffect(() => {
     if (data && data.error.length > 0) setIsOpen(true);
@@ -33,8 +49,19 @@ const NameCorrectionModal = ({ data }: NameCorrectionModalProps) => {
     >
       <div className='w-full  p-6'>
         <div className='mb-5 flex justify-between'>
-          <div>warn</div>
-          <div>X</div>
+          <Image
+            width={55}
+            height={55}
+            src='/images/warningYellow.png'
+            alt='warning icon'
+          />
+          <Image
+            width={25}
+            height={25}
+            onClick={cancel}
+            src='/images/x.png'
+            alt='warning icon'
+          />
         </div>
 
         <div>
@@ -57,17 +84,35 @@ const NameCorrectionModal = ({ data }: NameCorrectionModalProps) => {
             <b className='font-normal'>Sugerowana</b> nazwa pliku:
           </div>
           <div className='flex justify-between'>
-            <div>{data.correctFName}</div>
-            <input type='text' value={} />
-            <button>pen</button>
+            {penToggled ? (
+              <input
+                type='text'
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+              />
+            ) : (
+              <>
+                <div>{newName}</div>
+
+                <Image
+                  width={30}
+                  height={30}
+                  onClick={() => setPenToggled(true)}
+                  src='/images/pen.png'
+                  alt='warning icon'
+                />
+              </>
+            )}
           </div>
         </div>
 
         <div className='flex justify-end gap-4'>
-          <button className='h-9 w-28 border' onClick={() => setIsOpen(false)}>
+          <button className='h-9 w-28 border' onClick={ok}>
             Ok
           </button>
-          <button className='h-9 w-28 border'>Anuluj</button>
+          <button className='h-9 w-28 border' onClick={cancel}>
+            Anuluj
+          </button>
         </div>
       </div>
     </Modal>

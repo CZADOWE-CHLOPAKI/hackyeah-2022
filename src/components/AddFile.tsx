@@ -6,18 +6,20 @@ import { sendFile } from '@/lib/api';
 import fileNameChecker from '@/lib/fileNameChecker';
 import { CorrectedMapType, ErrorMapType } from '@/lib/types';
 
-import NameCorrectionModal from '@/components/NameCorrectionModal';
+import NameCorrectionModal, {
+  ModalData,
+} from '@/components/NameCorrectionModal';
 
 type AddFileProps = {
   files: File[];
-  addFiles: (files: File[]) => void;
+  setFiles: (files: File[]) => void;
 };
 
-const AddFile = ({ files, addFiles }: AddFileProps) => {
+const AddFile = ({ files, setFiles }: AddFileProps) => {
   const [correctedFileNames, setCorrectedFileNames] =
     useState<CorrectedMapType>();
   const [errors, setErrors] = useState<ErrorMapType>({});
-  const [modalData, setModalData] = useState<>();
+  const [modalData, setModalData] = useState<ModalData>();
 
   useEffect(() => {
     if (!files) return;
@@ -54,11 +56,17 @@ const AddFile = ({ files, addFiles }: AddFileProps) => {
 
   return (
     <div>
-      <NameCorrectionModal data={modalData} />
+      <NameCorrectionModal
+        data={modalData}
+        onCancel={() => {
+          setFiles(files.filter(({ name }) => modalData?.fname));
+        }}
+        onNewName={}
+      />
       <div className=' mb-3 text-4xl font-semibold text-primary'>
         Dodaj plik:
       </div>
-      <Dropzone onDrop={(acceptedFiles) => addFiles(acceptedFiles)}>
+      <Dropzone onDrop={(acceptedFiles) => setFiles(acceptedFiles)}>
         {({ getRootProps, getInputProps }) => (
           <div
             className='grid h-80 w-[80vw] max-w-[1200px] cursor-crosshair place-content-center rounded-md  border-4 border-primary bg-offWhite shadow-md'
