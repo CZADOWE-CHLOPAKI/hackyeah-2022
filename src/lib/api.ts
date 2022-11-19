@@ -1,3 +1,20 @@
-const uploadFile = () => {
-  return;
-};
+const env = process.env.NODE_ENV;
+
+let baseUrl = ''; //TODO ADD PROD URL
+if (env == 'development') {
+  baseUrl = 'http://localhost:8000';
+}
+
+export async function sendFile(file: File) {
+  const url = `${baseUrl}/documents`;
+
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await fetch(url, {
+    method: 'POST',
+    body: formData,
+  });
+
+  return response;
+}

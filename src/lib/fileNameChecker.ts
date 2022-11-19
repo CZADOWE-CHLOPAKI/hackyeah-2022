@@ -3,8 +3,11 @@ import { ErrorType } from '@/lib/types';
 const fileNameChecker = (fname: string) => {
   const errors: ErrorType[] = [];
 
+  const base = fname.split('.')?.[0];
+  const ext = fname.split('.')?.[1];
+
   if (fname.length > 255)
-    errors.push({ name: 'Nazwa pliku ma więcej ni 255 znaków.' });
+    errors.push({ name: 'Nazwa pliku ma więcej niz 255 znaków.' });
 
   const forbiddenChars = [
     `~`,
@@ -32,10 +35,14 @@ const fileNameChecker = (fname: string) => {
       });
   });
 
-  if (fname.trim() !== fname)
+  if (fname.trim() !== fname || base?.trim() !== base)
     errors.push({ name: 'Nazwa pliku zawiera spacje wiodące lub końcowe.' });
 
-  const corrected = '';
+  let corrected = `${base
+    ?.trim()
+    .slice(0, 255 - ((ext?.length || 3) + 1))}.${ext?.trim()}`;
+  corrected = corrected.replace(/~|"|#|%|&|\*|:|<|>|\?|!|\/|\\|\{|\}|\|/, '');
+
   return { errors, corrected };
 };
 

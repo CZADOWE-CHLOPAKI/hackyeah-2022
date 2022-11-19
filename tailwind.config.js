@@ -14,8 +14,9 @@ module.exports = {
         ok: colors.green[200],
         primary: '#0052A5',
         offWhite: colors.gray[100],
-        background: colors.gray[300],
-        borders: colors.gray[600],
+        gray: '#7D7D7DD6',
+        offGray:'#C6C6C6',
+        red: '#E30613',
       },
       keyframes: {
         flicker: {
