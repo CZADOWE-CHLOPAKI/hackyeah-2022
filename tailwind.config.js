@@ -12,6 +12,8 @@ module.exports = {
       },
       colors: {
         ok: colors.green[200],
+        primary: '#0052A5',
+        offWhite: colors.gray[100],
         background: colors.gray[300],
         borders: colors.gray[600],
       },
