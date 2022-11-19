@@ -10,7 +10,6 @@ import PrimaryLink from '@/components/links/PrimaryLink';
 import UnderlineLink from '@/components/links/UnderlineLink';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import NextImage from '@/components/NextImage';
-import Seo from '@/components/Seo';
 import Skeleton from '@/components/Skeleton';
 
 type Color = typeof colorList[number];
@@ -26,11 +25,6 @@ export default function ComponentsPage() {
 
   return (
     <Layout>
-      <Seo
-        templateTitle='Components'
-        description='Pre-built components with awesome default'
-      />
-
       <main>
         <section
           className={clsx(mode === 'dark' ? 'bg-dark' : 'bg-gray-50', color)}
