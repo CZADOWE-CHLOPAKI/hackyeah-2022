@@ -1,4 +1,5 @@
 import AddFile from '@/components/AddFile';
+import Instructions from '@/components/Instrunctions';
 import Layout from '@/components/layout/Layout';
 
 const HomePage = () => {
@@ -9,6 +10,7 @@ const HomePage = () => {
           <p>Dodaj plik do druku</p>
           <p></p>
         </div>
+        <Instructions></Instructions>
         <AddFile />
       </div>
     </Layout>
