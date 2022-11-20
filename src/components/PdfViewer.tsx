@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
+
+import { SinglePdfResponse } from '@/lib/types';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 type PdfViewerProps = {
-  pdf: File;
+  pdf: SinglePdfResponse;
 };
 
 const PdfViewer = ({ pdf }: PdfViewerProps) => {
@@ -28,7 +30,7 @@ const PdfViewer = ({ pdf }: PdfViewerProps) => {
     <div className='my-4 flex flex-col gap-4'>
       <Document
         className='grid w-full place-content-center'
-        file={pdf}
+        file={pdf.uri}
         onLoadSuccess={(pdf) => setPageNums(pdf.numPages)}
       >
         <div className='relative'>

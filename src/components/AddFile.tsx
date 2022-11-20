@@ -1,28 +1,22 @@
 import Image from 'next/image';
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Dropzone from 'react-dropzone';
 
 import { sendFile } from '@/lib/api';
 import { changeFileName } from '@/lib/changeFileName';
 import fileNameChecker from '@/lib/fileNameChecker';
-import { CorrectedMapType, ErrorMapType } from '@/lib/types';
+import { CorrectedMapType, ErrorMapType, PdfResponse } from '@/lib/types';
 
 import NameCorrectionModal, {
   ModalData,
 } from '@/components/NameCorrectionModal';
 
 type AddFileProps = {
-  files: File[];
-  setFiles: Dispatch<SetStateAction<File[]>>;
+  recivePdf: (pdf: Promise<PdfResponse>) => void;
 };
 
-const AddFile = ({ files, setFiles }: AddFileProps) => {
+const AddFile = ({ recivePdf }: AddFileProps) => {
+  const [files, setFiles] = useState<File[]>([]);
   const [uploadReady, setUploadReady] = useState(false);
   const [errors, setErrors] = useState<ErrorMapType>({});
   const [modalData, setModalData] = useState<ModalData>();
@@ -30,10 +24,10 @@ const AddFile = ({ files, setFiles }: AddFileProps) => {
   useEffect(() => {
     if (!uploadReady) return;
     files.map((file) => {
-      sendFile(file);
+      recivePdf(sendFile(file));
     });
     setFiles([]);
-  }, [errors, files, setFiles, uploadReady]);
+  }, [errors, files, recivePdf, setFiles, uploadReady]);
 
   const checkErrors = useCallback(() => {
     if (!files) return;
