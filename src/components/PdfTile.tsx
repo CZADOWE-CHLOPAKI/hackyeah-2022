@@ -4,6 +4,8 @@ import { useState } from 'react';
 import clsxm from '@/lib/clsxm';
 import { OutcomeType, SinglePdfResponse } from '@/lib/types';
 
+import PdfViewer from '@/components/PdfViewer';
+
 const messages = {
   corrected: (
     <>
@@ -67,7 +69,11 @@ const PdfTile = ({ pdf }: PdfTileProps) => {
           />
         </div>
       </button>
-      {expanded && <div className='h-[600px]'></div>}
+      {expanded && (
+        <div>
+          <PdfViewer pdf={pdf} />
+        </div>
+      )}
     </>
   );
 };

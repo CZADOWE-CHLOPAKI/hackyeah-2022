@@ -17,7 +17,7 @@ const HomePage = () => {
 
   return (
     <Layout>
-      <div className='mx-auto flex flex-col gap-16 '>
+      <div className='mx-auto mb-8 flex flex-col gap-16'>
         <Functionality />
         <AddFile recivePdf={recivePdf} />
         <PdfTiles pdfs={pdfs} />

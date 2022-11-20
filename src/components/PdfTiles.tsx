@@ -7,6 +7,7 @@ type PdfTilesProps = {
 };
 
 const PdfTiles = ({ pdfs }: PdfTilesProps) => {
+  if (pdfs.length === 0) return null;
   return (
     <div className='rounded-3xl border border-offGray bg-white '>
       {pdfs.map((pdf, idx) => (
