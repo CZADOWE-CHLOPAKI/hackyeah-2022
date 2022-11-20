@@ -10,9 +10,13 @@ export type PdfOutcomeType = {
   outcome: OutcomeType;
 };
 
+export type PdfResponse = {
+  data: SinglePdfResponse[];
+};
+
 type SignData = {};
 
-export type PdfResponse = {
+export type SinglePdfResponse = {
   converted: boolean;
   size: number;
   conversion_error: boolean;

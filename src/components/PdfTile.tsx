@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import clsxm from '@/lib/clsxm';
-import { PdfOutcomeType } from '@/lib/types';
+import { OutcomeType, SinglePdfResponse } from '@/lib/types';
 
 const messages = {
   corrected: (
@@ -38,11 +38,13 @@ const messages = {
 };
 
 type PdfTileProps = {
-  pdf: PdfOutcomeType;
+  pdf: SinglePdfResponse;
 };
 
 const PdfTile = ({ pdf }: PdfTileProps) => {
   const [expanded, setExpanded] = useState(false);
+
+  const outcome: OutcomeType = 'corrected';
 
   return (
     <>
@@ -50,10 +52,10 @@ const PdfTile = ({ pdf }: PdfTileProps) => {
         onClick={() => setExpanded(!expanded)}
         className='flex w-full items-center justify-between px-8 py-6 text-base font-light'
       >
-        <div className='flex items-center gap-4'>{messages[pdf.outcome]}</div>
+        <div className='flex items-center gap-4'>{messages[outcome]}</div>
         <div className='flex items-center gap-6'>
-          <div>{`${pdf.fname.slice(0, 30)}${
-            pdf.fname.length > 30 ? '...' : ''
+          <div>{`${pdf.filename.slice(0, 30)}${
+            pdf.filename.length > 30 ? '...' : ''
           }`}</div>
 
           <Image

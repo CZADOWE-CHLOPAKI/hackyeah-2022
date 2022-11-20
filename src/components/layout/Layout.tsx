@@ -48,7 +48,7 @@ const Header = () => {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className=' flex h-screen w-screen flex-col items-center bg-offWhite font-primary text-xl font-light'>
+    <div className=' flex  w-screen flex-col items-center bg-offWhite font-primary text-xl font-light'>
       <div className='w-[80vw] max-w-[1200px]'>
         <Header />
         <UsefullLinks />
