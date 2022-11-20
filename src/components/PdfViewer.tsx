@@ -29,7 +29,7 @@ const PdfViewer = ({ pdf }: PdfViewerProps) => {
   return (
     <div className='my-4 flex flex-col gap-4'>
       <Document
-        className='grid w-full place-content-center'
+        className='grid w-full place-content-center '
         file={pdf.uri}
         onLoadSuccess={(pdf) => setPageNums(pdf.numPages)}
       >
@@ -42,7 +42,7 @@ const PdfViewer = ({ pdf }: PdfViewerProps) => {
           />
 
           <Page
-            className='relative'
+            className='relative border'
             pageNumber={pageIdx}
             renderTextLayer={false}
             renderAnnotationLayer={false}

@@ -49,6 +49,7 @@ const NameCorrectionModal = ({
   return (
     <Modal
       isOpen={isOpen}
+      ariaHideApp={false}
       contentLabel='Example Modal'
       className='m-auto w-[600px] rounded-3xl border border-offGray bg-white font-light'
       portalClassName='relative z-50'
