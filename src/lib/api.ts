@@ -4,7 +4,7 @@ import { PdfResponse } from '@/lib/types';
 
 const env = process.env.NODE_ENV;
 
-let baseUrl = 'http://157.245.70.41';
+let baseUrl = 'http://157.245.70.41:8000';
 
 if (env == 'development') {
   baseUrl = 'http://localhost:8000';
