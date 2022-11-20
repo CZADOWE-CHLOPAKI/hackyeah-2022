@@ -5,10 +5,15 @@ const UsefullLinks = () => {
   return (
     <div className='mb-10 mt-4 w-full'>
       <div className='flex gap-14 text-xl font-light '>
-        <a href='https://mc.bip.gov.pl/ogloszenia/minimalne-wymagania-techniczne-dla-wydrukow-dokumentow-elektronicznych-realizowanych-w-zakresie-publicznej-uslugi-hybrydowej.html'>
+        <a
+          href='https://mc.bip.gov.pl/ogloszenia/minimalne-wymagania-techniczne-dla-wydrukow-dokumentow-elektronicznych-realizowanych-w-zakresie-publicznej-uslugi-hybrydowej.html'
+          className='hover:text-[#E04F5F]'
+        >
           Wymagania Operatora Wyznaczonego
         </a>
-        <a href=''>Wzór dokumentu</a>
+        <a href='' className='hover:text-[#E04F5F]'>
+          Wzór dokumentu
+        </a>
       </div>
       <div className='mt-4  w-full border-b-2 border-b-red lg:w-2/3' />
     </div>

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 
@@ -64,7 +65,12 @@ const PdfViewer = ({ pdf }: PdfViewerProps) => {
             if (pageIdx !== pageNums) setPageIdx(pageIdx + 1);
           }}
         >
-          nastepna strona
+          <Image
+            alt='strzalka W Prawo'
+            src='public\images\arrow-right_black.png'
+            width={50}
+            height={50}
+          ></Image>
         </button>
       </div>
     </div>
