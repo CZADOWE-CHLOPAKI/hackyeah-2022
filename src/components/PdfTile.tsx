@@ -61,6 +61,16 @@ const PdfTile = ({ pdf }: PdfTileProps) => {
       >
         <div className='flex items-center gap-4'>{message}</div>
         <div className='flex items-center gap-6'>
+          <a
+            className='rounded-xl border bg-white py-1 px-2'
+            href={pdf.report_uri}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            download
+          >
+            Generuj raport
+          </a>
           <a href={pdf.uri} download onClick={(e) => e.stopPropagation()}>
             <div className='flex items-center gap-2'>
               <Image

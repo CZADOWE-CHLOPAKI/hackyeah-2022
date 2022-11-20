@@ -13,6 +13,22 @@ import Layout from '@/components/layout/Layout';
 import PdfTiles from '@/components/PdfTiles';
 import Results from '@/components/Results';
 
+function download(filename: string, text: string) {
+  const element = document.createElement('a');
+  element.setAttribute(
+    'href',
+    'data:text/plain;charset=utf-8,' + encodeURIComponent(text)
+  );
+  element.setAttribute('download', filename);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
 const HomePage = () => {
   const [pdfs, setPdfs] = useState<SinglePdfResponse[]>([]);
   const [loading, setLoading] = useState(false);
@@ -21,6 +37,27 @@ const HomePage = () => {
     corrected: 0,
     error: 0,
   });
+
+  const onGenerateReport = async () => {
+    async function getText(url: string) {
+      let text = '';
+      try {
+        const res = await fetch(url);
+        text = await res.text();
+      } catch (error) {
+        console.error(error);
+      }
+      return text;
+    }
+    let output = '';
+    for (const pdf of pdfs) {
+      if (!pdf.uri) continue;
+      const t = await getText(pdf.uri);
+      output = `${output}\n\n${pdf.filename}\n${t}`;
+    }
+
+    download('raport.txt', output);
+  };
 
   useEffect(() => {
     const newCount = {
@@ -62,6 +99,7 @@ const HomePage = () => {
         <AddFile recivePdf={recivePdf} loading={loading} />
         {pdfs.length > 1 && !loading && (
           <Results
+            onGenerateReport={onGenerateReport}
             count={count.corrected + count.error + count.ok}
             corrected={count.corrected}
             ok={count.ok}

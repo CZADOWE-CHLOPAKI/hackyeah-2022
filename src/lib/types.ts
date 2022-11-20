@@ -33,4 +33,5 @@ export type SinglePdfResponseCorrect = {
   uri?: string;
   sign_data?: SignData;
   verified_ts?: number;
+  report_uri?: string;
 };

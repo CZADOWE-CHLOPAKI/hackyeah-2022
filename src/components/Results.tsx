@@ -3,8 +3,15 @@ type ResultsProps = {
   corrected: number;
   ok: number;
   error: number;
+  onGenerateReport: () => void;
 };
-const Results = ({ corrected, count, error, ok }: ResultsProps) => {
+const Results = ({
+  corrected,
+  count,
+  error,
+  ok,
+  onGenerateReport,
+}: ResultsProps) => {
   return (
     <div className='-mb-8 flex justify-between'>
       <div>
@@ -16,7 +23,7 @@ const Results = ({ corrected, count, error, ok }: ResultsProps) => {
         <div>poprawionych: {corrected}</div>
       </div>
       <div className='flex h-full flex-col justify-end'>
-        <button className='rounded-3xl border bg-white py-2 px-4'>
+        <button className='rounded-3xl border bg-white py-2 px-4' onClick={}>
           Generuj raport
         </button>
       </div>
