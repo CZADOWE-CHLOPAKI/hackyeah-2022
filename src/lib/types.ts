@@ -9,3 +9,16 @@ export type PdfOutcomeType = {
   url: string;
   outcome: OutcomeType;
 };
+
+type SignData = {};
+
+export type PdfResponse = {
+  converted: boolean;
+  size: number;
+  conversion_error: boolean;
+  errors: string[];
+  filename: string;
+  uri: string;
+  sign_data: SignData;
+  verified_ts: number;
+};

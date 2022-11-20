@@ -11,7 +11,7 @@ const HomePage = () => {
 
   return (
     <Layout>
-      <div className='mx-auto flex flex-col '>
+      <div className='mx-auto flex flex-col gap-16 '>
         <Functionality />
         <AddFile files={files} setFiles={setFiles} />
         <PdfTiles

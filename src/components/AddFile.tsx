@@ -23,41 +23,33 @@ type AddFileProps = {
 };
 
 const AddFile = ({ files, setFiles }: AddFileProps) => {
-  const [correctedFileNames, setCorrectedFileNames] =
-    useState<CorrectedMapType>();
+  const [uploadReady, setUploadReady] = useState(false);
   const [errors, setErrors] = useState<ErrorMapType>({});
   const [modalData, setModalData] = useState<ModalData>();
+
+  useEffect(() => {
+    if (!uploadReady) return;
+    files.map((file) => {
+      sendFile(file);
+    });
+    setFiles([]);
+  }, [errors, files, setFiles, uploadReady]);
 
   const checkErrors = useCallback(() => {
     if (!files) return;
 
     const newErrors: ErrorMapType = {};
-    const newCorrectedFileNames: CorrectedMapType = {};
+    const correctedFileNames: CorrectedMapType = {};
 
     files.map((file) => {
       fileNameChecker(file.name);
       const { errors, corrected } = fileNameChecker(file.name);
-      newErrors[file.name] = errors;
-      newCorrectedFileNames[file.name] = corrected;
+      if (errors.length > 0) newErrors[file.name] = errors;
+      correctedFileNames[file.name] = corrected;
     });
 
-    setErrors(newErrors);
-    setCorrectedFileNames(newCorrectedFileNames);
-  }, [files]);
-
-  const uploadFiles = () => {
-    files.map((file) => {
-      sendFile(file);
-    });
-  };
-
-  useEffect(() => {
-    checkErrors();
-  }, [checkErrors, files]);
-
-  useEffect(() => {
-    for (const fname in errors) {
-      const error = errors[fname];
+    for (const fname in newErrors) {
+      const error = newErrors[fname];
       setModalData({
         error,
         fname,
@@ -65,7 +57,14 @@ const AddFile = ({ files, setFiles }: AddFileProps) => {
       });
       break;
     }
-  }, [correctedFileNames, errors]);
+
+    setErrors(newErrors);
+    setUploadReady(Object.keys(newErrors).length === 0 && files.length > 0);
+  }, [files]);
+
+  useEffect(() => {
+    checkErrors();
+  }, [checkErrors, files]);
 
   return (
     <div>
@@ -85,7 +84,6 @@ const AddFile = ({ files, setFiles }: AddFileProps) => {
           const other = files.filter(({ name }) => name !== modalData?.fname);
 
           setModalData(undefined);
-          setErrors({});
           setFiles([...other, newFile]);
         }}
       />
