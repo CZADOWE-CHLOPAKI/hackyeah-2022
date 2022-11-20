@@ -23,7 +23,10 @@ const Results = ({
         <div>poprawionych: {corrected}</div>
       </div>
       <div className='flex h-full flex-col justify-end'>
-        <button className='rounded-3xl border bg-white py-2 px-4' onClick={}>
+        <button
+          className='rounded-3xl border bg-white py-2 px-4'
+          onClick={onGenerateReport}
+        >
           Generuj raport
         </button>
       </div>
