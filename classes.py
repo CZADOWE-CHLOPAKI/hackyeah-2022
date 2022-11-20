@@ -6,7 +6,7 @@ class Sender:
         self.ePUAP = ePUAP
     
     def __str__(self) -> str:
-        return f"name -> {self.name}\nadres -> {self.adres}\nemail -> {self.email}\nePUAP -> {self.ePUAP}\n"
+        return f"name -> {self.name}\nadres -> {self.adres}\nemail -> {self.email}\nePUAP -> {self.ePUAP}"
 
 class Receiver:
     def __init__(self, name, address, pesel=None, nip=None):

@@ -47,5 +47,6 @@ def file2receiver(pdf_path):
         print(receiver)
         return receiver
 
-path = folder + "/" + file
-# file2receiver(path)
+if __name__== "__main__":
+    path = folder + "/" + file
+    file2receiver(path)
