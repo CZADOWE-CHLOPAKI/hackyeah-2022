@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import AddFile from '@/components/AddFile';
+import Functionality from '@/components/Functionality';
 import Layout from '@/components/layout/Layout';
 import PdfTiles from '@/components/PdfTiles';
 import PdfViewer from '@/components/PdfViewer';
@@ -11,6 +12,7 @@ const HomePage = () => {
   return (
     <Layout>
       <div className='mx-auto flex flex-col '>
+        <Functionality />
         <AddFile files={files} setFiles={setFiles} />
         <PdfTiles
           pdfs={[

@@ -10,7 +10,7 @@ const UsefullLinks = () => {
         </a>
         <a href=''>Wzór dokumentu</a>
       </div>
-      <div className='mt-4 w-2/3 border-b-2 border-b-red' />
+      <div className='mt-4  w-full border-b-2 border-b-red lg:w-2/3' />
     </div>
   );
 };
@@ -37,10 +37,10 @@ const Header = () => {
           height={40}
         />
       </div>
-      <div className='flex'>
+      {/* <div className='flex'>
         <button className='w-12 border py-3'>ENG</button>
         <button className='w-12 border py-3'>PL</button>
-      </div>
+      </div> */}
       <Image alt='MF logo' src='/images/MF_logo.png' width={232} height={100} />
     </div>
   );
@@ -52,8 +52,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className='w-[80vw] max-w-[1200px]'>
         <Header />
         <UsefullLinks />
+        <div className='bg-background grid min-h-full  w-full'>{children}</div>
       </div>
-      <div className='bg-background grid min-h-full  w-full'>{children}</div>
     </div>
   );
 }

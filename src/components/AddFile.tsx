@@ -28,10 +28,6 @@ const AddFile = ({ files, setFiles }: AddFileProps) => {
   const [errors, setErrors] = useState<ErrorMapType>({});
   const [modalData, setModalData] = useState<ModalData>();
 
-  useEffect(() => {
-    console.log('f', files);
-  }, [files]);
-
   const checkErrors = useCallback(() => {
     if (!files) return;
 
@@ -45,13 +41,15 @@ const AddFile = ({ files, setFiles }: AddFileProps) => {
       newCorrectedFileNames[file.name] = corrected;
     });
 
-    files.map((file) => {
-      sendFile(file);
-    });
-
     setErrors(newErrors);
     setCorrectedFileNames(newCorrectedFileNames);
   }, [files]);
+
+  const uploadFiles = () => {
+    files.map((file) => {
+      sendFile(file);
+    });
+  };
 
   useEffect(() => {
     checkErrors();
