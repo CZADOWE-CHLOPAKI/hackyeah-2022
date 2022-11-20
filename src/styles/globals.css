@@ -42,3 +42,6 @@
 .ReactModal__Overlay{
   display: flex;
 }
+img{
+  height: unset;
+}

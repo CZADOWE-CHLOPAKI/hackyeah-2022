@@ -1,8 +1,15 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import Dropzone from 'react-dropzone';
 
 import { sendFile } from '@/lib/api';
+import { changeFileName } from '@/lib/changeFileName';
 import fileNameChecker from '@/lib/fileNameChecker';
 import { CorrectedMapType, ErrorMapType } from '@/lib/types';
 
@@ -12,7 +19,7 @@ import NameCorrectionModal, {
 
 type AddFileProps = {
   files: File[];
-  setFiles: (files: File[]) => void;
+  setFiles: Dispatch<SetStateAction<File[]>>;
 };
 
 const AddFile = ({ files, setFiles }: AddFileProps) => {
@@ -22,6 +29,10 @@ const AddFile = ({ files, setFiles }: AddFileProps) => {
   const [modalData, setModalData] = useState<ModalData>();
 
   useEffect(() => {
+    console.log('f', files);
+  }, [files]);
+
+  const checkErrors = useCallback(() => {
     if (!files) return;
 
     const newErrors: ErrorMapType = {};
@@ -43,6 +54,10 @@ const AddFile = ({ files, setFiles }: AddFileProps) => {
   }, [files]);
 
   useEffect(() => {
+    checkErrors();
+  }, [checkErrors, files]);
+
+  useEffect(() => {
     for (const fname in errors) {
       const error = errors[fname];
       setModalData({
@@ -59,32 +74,43 @@ const AddFile = ({ files, setFiles }: AddFileProps) => {
       <NameCorrectionModal
         data={modalData}
         onCancel={() => {
-          setFiles(files.filter(({ name }) => modalData?.fname));
+          setFiles(files.filter(({ name }) => name !== modalData?.fname));
         }}
-        onNewName={}
+        onNewName={(newName) => {
+          const fileToChange = files.find(
+            ({ name }) => name === modalData?.fname
+          );
+
+          if (!fileToChange) return;
+
+          const newFile = changeFileName(fileToChange, newName);
+          const other = files.filter(({ name }) => name !== modalData?.fname);
+
+          setModalData(undefined);
+          setErrors({});
+          setFiles([...other, newFile]);
+        }}
       />
-      <div className=' mb-3 text-4xl font-semibold text-primary'>
+      <div className=' mb-3 text-3xl font-semibold text-primary'>
         Dodaj plik:
       </div>
       <Dropzone onDrop={(acceptedFiles) => setFiles(acceptedFiles)}>
         {({ getRootProps, getInputProps }) => (
           <div
-            className='grid h-80 w-[80vw] max-w-[1200px] cursor-crosshair place-content-center rounded-md  border-4 border-primary bg-offWhite shadow-md'
+            className='grid h-80 w-[80vw] max-w-[1200px] cursor-crosshair place-content-center rounded-md  border-2 border-primary bg-offWhite shadow-md'
             {...getRootProps()}
           >
             <input {...getInputProps()} />
 
-            {files.length === 0 && (
-              <div className='flex flex-col items-center gap-3.5'>
-                <Image
-                  src='/images/submit.png'
-                  alt='submit icon png'
-                  width={184}
-                  height={186}
-                />
-                <div className='text-4xl'>Upuść pliki tutaj</div>
-              </div>
-            )}
+            <div className='flex flex-col items-center gap-3.5'>
+              <Image
+                src='/images/submit.png'
+                alt='submit icon png'
+                width={140}
+                height={140}
+              />
+              <div className='text-3xl'>Upuść pliki tutaj</div>
+            </div>
           </div>
         )}
       </Dropzone>

@@ -21,8 +21,13 @@ const NameCorrectionModal = ({
   onNewName,
 }: NameCorrectionModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [newName, setNewName] = useState(data?.correctFName || '');
+  const [newName, setNewName] = useState('');
   const [penToggled, setPenToggled] = useState(false);
+
+  useEffect(() => {
+    if (!data) return;
+    setNewName(data.correctFName);
+  }, [data]);
 
   const cancel = () => {
     setIsOpen(false);
@@ -45,10 +50,11 @@ const NameCorrectionModal = ({
     <Modal
       isOpen={isOpen}
       contentLabel='Example Modal'
-      className=' m-auto w-[600px] rounded-3xl border border-offGray bg-white font-light'
+      className='m-auto w-[600px] rounded-3xl border border-offGray bg-white font-light'
+      portalClassName='relative z-50'
     >
       <div className='w-full  p-6'>
-        <div className='mb-5 flex justify-between'>
+        <div className='mb-5 flex items-center justify-between'>
           <Image
             width={55}
             height={55}
@@ -71,7 +77,7 @@ const NameCorrectionModal = ({
           <a href=''>linkiem</a>.
         </div>
 
-        <div className='mb-8'>
+        <div className='mb-4'>
           {errArray.map((err, idx) => (
             <div key={idx} className='text-red'>
               {err}
@@ -83,20 +89,21 @@ const NameCorrectionModal = ({
           <div className='mb-0.5'>
             <b className='font-normal'>Sugerowana</b> nazwa pliku:
           </div>
-          <div className='flex justify-between'>
+          <div className='flex items-center'>
             {penToggled ? (
               <input
                 type='text'
+                className='w-full'
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
               />
             ) : (
               <>
-                <div>{newName}</div>
-
+                <code className='text-'>{newName}</code>
                 <Image
-                  width={30}
-                  height={30}
+                  className='mx-6'
+                  width={20}
+                  height={20}
                   onClick={() => setPenToggled(true)}
                   src='/images/pen.png'
                   alt='warning icon'

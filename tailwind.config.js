@@ -11,12 +11,13 @@ module.exports = {
         primary: ['Open Sans', ...fontFamily.sans],
       },
       colors: {
-        ok: colors.green[200],
-        primary: '#0052A5',
         offWhite: colors.gray[100],
         gray: '#7D7D7DD6',
-        offGray:'#C6C6C6',
-        red: '#E30613',
+        offGray: '#C6C6C6',
+        primary: '#0052A5',
+        ok: '#4BAE4F',
+        red: '#E04F5F',
+        warn: '#FFA700',
       },
       keyframes: {
         flicker: {
