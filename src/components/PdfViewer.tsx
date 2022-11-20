@@ -57,7 +57,7 @@ const PdfViewer = ({ pdf }: PdfViewerProps) => {
             if (pageIdx !== 1) setPageIdx(pageIdx - 1);
           }}
           alt='strzalka W lewo'
-          src='public\images\arrow-right_black.png'
+          src='/public/images/arrow-right_black.png'
           width={50}
           height={50}
           className='rotate-180'
@@ -68,7 +68,7 @@ const PdfViewer = ({ pdf }: PdfViewerProps) => {
             if (pageIdx !== pageNums) setPageIdx(pageIdx + 1);
           }}
           alt='strzalka W Prawo'
-          src='public\images\arrow-right_black.png'
+          src='/public/images/arrow-right_black.png'
           width={50}
           height={50}
         ></Image>
