@@ -2,12 +2,12 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import clsxm from '@/lib/clsxm';
-import { OutcomeType, SinglePdfResponse } from '@/lib/types';
+import { ErrorTypeResponse, OutcomeType, SinglePdfResponse } from '@/lib/types';
 
 import PdfViewer from '@/components/PdfViewer';
 
 const messages = {
-  corrected: (
+  ok: (
     <>
       <Image
         src='/images/correct.png'
@@ -18,7 +18,7 @@ const messages = {
       <div className='text-ok'>Plik jest poprawny.</div>
     </>
   ),
-  ok: (
+  corrected: (
     <>
       <Image
         src='/images/warningYellow.png'
@@ -26,15 +26,15 @@ const messages = {
         width={50}
         height={50}
       />
-      <div className='text-warn'>Plik jest niepoprawny.</div>
-    </>
-  ),
-  error: (
-    <>
-      <Image src='/images/close.png' alt='error icon' width={50} height={50} />
-      <div className='text-red'>
+      <div className='text-warn'>
         Plik zawierał błędy, ale zostały one poprawione.
       </div>
+    </>
+  ),
+  warn: (
+    <>
+      <Image src='/images/close.png' alt='error icon' width={50} height={50} />
+      <div className='text-red'>Plik jest niepoprawny.</div>
     </>
   ),
 };
@@ -43,10 +43,25 @@ type PdfTileProps = {
   pdf: SinglePdfResponse;
 };
 
+const getOutcomeFromErrors = (errors: ErrorTypeResponse[]): OutcomeType => {
+  if (errors.length === 0) return 'ok';
+
+  const allCorrected = errors.reduce(
+    (acc, { corrected }) => acc && corrected,
+    true
+  );
+
+  return allCorrected ? 'corrected' : 'error';
+};
+
 const PdfTile = ({ pdf }: PdfTileProps) => {
   const [expanded, setExpanded] = useState(false);
 
-  const outcome: OutcomeType = 'corrected';
+  const outcome: OutcomeType = getOutcomeFromErrors(pdf.errors);
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const message = messages[outcome];
 
   return (
     <>
@@ -54,7 +69,7 @@ const PdfTile = ({ pdf }: PdfTileProps) => {
         onClick={() => setExpanded(!expanded)}
         className='flex w-full items-center justify-between px-8 py-6 text-base font-light'
       >
-        <div className='flex items-center gap-4'>{messages[outcome]}</div>
+        <div className='flex items-center gap-4'>{message}</div>
         <div className='flex items-center gap-6'>
           <div>{`${pdf.filename.slice(0, 30)}${
             pdf.filename.length > 30 ? '...' : ''

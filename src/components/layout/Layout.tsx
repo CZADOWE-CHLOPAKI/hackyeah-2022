@@ -58,17 +58,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Header />
         <UsefullLinks />
         <div className='bg-background grid min-h-full  w-full'>{children}</div>
-        <footer>
-          <div className='p4 w-full border-b-2 border-b-red p-3'></div>
-          <Image
-            src='/images/kas.png'
-            alt='Krajowa Administracja Skarbowa'
-            width={330}
-            height={74}
-            className='p-5'
-          ></Image>
-        </footer>
       </div>
+      <footer className='w-full'>
+        <div className='p4 w-full border-b-2 border-b-red p-3'></div>
+        <Image
+          src='/images/kas.png'
+          alt='Krajowa Administracja Skarbowa'
+          width={330}
+          height={74}
+          className='p-5'
+        ></Image>
+      </footer>
     </div>
   );
 }

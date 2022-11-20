@@ -14,13 +14,19 @@ export type PdfResponse = {
   data: SinglePdfResponse[];
 };
 
-type SignData = {};
+type SignData = { aaa: '' };
+
+export type ErrorTypeResponse = {
+  error: string;
+  corrected: boolean;
+  coordinates: null;
+};
 
 export type SinglePdfResponse = {
   converted: boolean;
   size: number;
   conversion_error: boolean;
-  errors: string[];
+  errors: ErrorTypeResponse[];
   filename: string;
   uri: string;
   sign_data: SignData;

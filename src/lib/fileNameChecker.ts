@@ -41,7 +41,10 @@ const fileNameChecker = (fname: string) => {
   let corrected = `${base
     ?.trim()
     .slice(0, 255 - ((ext?.length || 3) + 1))}.${ext?.trim()}`;
-  corrected = corrected.replace(/~|"|#|%|&|\*|:|<|>|\?|!|\/|\\|\{|\}|\|/, '');
+  corrected = corrected.replaceAll(
+    /~|"|#|%|&|\*|:|<|>|\?|!|\/|\\|\{|\}|\|/g,
+    ''
+  );
 
   return { errors, corrected };
 };

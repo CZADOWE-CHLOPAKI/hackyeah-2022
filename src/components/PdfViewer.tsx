@@ -30,49 +30,54 @@ const PdfViewer = ({ pdf }: PdfViewerProps) => {
   return (
     <div className='my-4 flex flex-col gap-4'>
       <Document
-        className='grid w-full place-content-center '
+        className='flex w-full  '
         file={pdf.uri}
         onLoadSuccess={(pdf) => setPageNums(pdf.numPages)}
       >
-        <div className='relative'>
+        <div className='relative ml-8 '>
           <canvas
             width={1000}
             height={1000 * 1.41428571429}
             ref={canvasRef}
-            className='absolute z-10 grid h-full w-full place-content-center'
+            className='absolute z-10  h-full w-full bg-teal-600/70'
           />
 
-          <Page
-            className='relative border'
-            pageNumber={pageIdx}
-            renderTextLayer={false}
-            renderAnnotationLayer={false}
-          />
+          <div className='absolute z-20 h-full w-full'>
+            <div className='relative top-1/2 my-auto flex w-full -translate-y-1/2 justify-between px-2'>
+              <Image
+                onClick={() => {
+                  if (pageIdx !== 1) setPageIdx(pageIdx - 1);
+                }}
+                alt='strzalka W lewo'
+                src='/images/arrow-right_black.png'
+                width={40}
+                height={40}
+                className='rotate-180 cursor-pointer'
+              ></Image>
+
+              <Image
+                onClick={() => {
+                  if (pageIdx !== pageNums) setPageIdx(pageIdx + 1);
+                }}
+                alt='strzalka W Prawo'
+                className='cursor-pointer'
+                src='/images/arrow-right_black.png'
+                width={40}
+                height={40}
+              ></Image>
+            </div>
+          </div>
+
+          <div className='flex flex-col'>
+            <Page
+              className='relative border'
+              pageNumber={pageIdx}
+              renderTextLayer={false}
+              renderAnnotationLayer={false}
+            />
+          </div>
         </div>
       </Document>
-
-      <div className='flex justify-between'>
-        <Image
-          onClick={() => {
-            if (pageIdx !== 1) setPageIdx(pageIdx - 1);
-          }}
-          alt='strzalka W lewo'
-          src='/public/images/arrow-right_black.png'
-          width={50}
-          height={50}
-          className='rotate-180'
-        ></Image>
-
-        <Image
-          onClick={() => {
-            if (pageIdx !== pageNums) setPageIdx(pageIdx + 1);
-          }}
-          alt='strzalka W Prawo'
-          src='/public/images/arrow-right_black.png'
-          width={50}
-          height={50}
-        ></Image>
-      </div>
     </div>
   );
 };
