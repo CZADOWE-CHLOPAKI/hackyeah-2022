@@ -52,26 +52,26 @@ const PdfViewer = ({ pdf }: PdfViewerProps) => {
       </Document>
 
       <div className='flex justify-between'>
-        <button
+        <Image
           onClick={() => {
             if (pageIdx !== 1) setPageIdx(pageIdx - 1);
           }}
-        >
-          pooprzednia strona
-        </button>
+          alt='strzalka W lewo'
+          src='public\images\arrow-right_black.png'
+          width={50}
+          height={50}
+          className='rotate-180'
+        ></Image>
 
-        <button
+        <Image
           onClick={() => {
             if (pageIdx !== pageNums) setPageIdx(pageIdx + 1);
           }}
-        >
-          <Image
-            alt='strzalka W Prawo'
-            src='public\images\arrow-right_black.png'
-            width={50}
-            height={50}
-          ></Image>
-        </button>
+          alt='strzalka W Prawo'
+          src='public\images\arrow-right_black.png'
+          width={50}
+          height={50}
+        ></Image>
       </div>
     </div>
   );
