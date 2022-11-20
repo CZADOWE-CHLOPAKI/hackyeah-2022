@@ -19,21 +19,27 @@ const PdfViewer = ({ pdf }: PdfViewerProps) => {
     const ctx = canvasRef.current?.getContext('2d');
     if (!ctx) return;
 
-    ctx.clearRect(0, 0, 10000, 10000);
-    ctx.globalAlpha = 0.2;
-    ctx.fillStyle = 'blue';
-    ctx.beginPath();
-    ctx.arc(500, 100, 25, 0, 2 * Math.PI);
-    ctx.fill();
-    ctx.stroke();
+    // ctx.clearRect(0, 0, 10000, 10000);
+    // ctx.globalAlpha = 0.2;
+    // ctx.fillStyle = 'blue';
+    // ctx.beginPath();
+    // ctx.arc(500, 100, 25, 0, 2 * Math.PI);
+    // ctx.fill();
+    // ctx.stroke();
   }, [pageIdx, pageNums]);
 
   const corrected = pdf.errors.filter(({ corrected }) => corrected);
   const notCorrected = pdf.errors.filter(({ corrected }) => !corrected);
   const info = [];
-  if (pdf.converted) {
+
+  if (
+    pdf.errors.some((errors) => errors.corrected) &&
+    !pdf.errors.some(
+      ({ error }) => error === 'Dokument nie posiada podpisu elektronicznego' //PLEASE GOD FORGIVE ME FOR THIS
+    )
+  ) {
     info.push(
-      'Plik został przekonwertowany na format pdf. Wymaga ponownego podpisu cyfrowego.'
+      'Ze względu na wprowadzone zmiany plik wymaga ponownego podpisu cyfrowego.'
     );
   }
 

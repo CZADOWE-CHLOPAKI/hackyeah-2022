@@ -61,9 +61,19 @@ const PdfTile = ({ pdf }: PdfTileProps) => {
       >
         <div className='flex items-center gap-4'>{message}</div>
         <div className='flex items-center gap-6'>
-          <div>{`${pdf.filename.slice(0, 30)}${
-            pdf.filename.length > 30 ? '...' : ''
-          }`}</div>
+          <a href={pdf.uri} download onClick={(e) => e.stopPropagation()}>
+            <div className='flex items-center gap-2'>
+              <Image
+                width={16}
+                height={16}
+                src='/images/download.png'
+                alt='download icon'
+              />
+              <div>{`${pdf.filename.slice(0, 30)}${
+                pdf.filename.length > 30 ? '...' : ''
+              }`}</div>
+            </div>
+          </a>
 
           <Image
             className={clsxm(expanded && 'rotate-180')}
