@@ -2,7 +2,8 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 import clsxm from '@/lib/clsxm';
-import { ErrorTypeResponse, OutcomeType, SinglePdfResponse } from '@/lib/types';
+import { getOutcomeFromErrors } from '@/lib/getOutcomeFromErrors';
+import { OutcomeType, SinglePdfResponse } from '@/lib/types';
 
 import PdfViewer from '@/components/PdfViewer';
 
@@ -11,7 +12,7 @@ const messages = {
     <>
       <Image
         src='/images/correct.png'
-        alt='warning icon'
+        alt='correct icon'
         width={50}
         height={50}
       />
@@ -22,7 +23,7 @@ const messages = {
     <>
       <Image
         src='/images/warningYellow.png'
-        alt='correct icon'
+        alt='warning icon'
         width={50}
         height={50}
       />
@@ -31,7 +32,7 @@ const messages = {
       </div>
     </>
   ),
-  warn: (
+  error: (
     <>
       <Image src='/images/close.png' alt='error icon' width={50} height={50} />
       <div className='text-red'>Plik jest niepoprawny.</div>
@@ -43,21 +44,10 @@ type PdfTileProps = {
   pdf: SinglePdfResponse;
 };
 
-const getOutcomeFromErrors = (errors: ErrorTypeResponse[]): OutcomeType => {
-  if (errors.length === 0) return 'ok';
-
-  const allCorrected = errors.reduce(
-    (acc, { corrected }) => acc && corrected,
-    true
-  );
-
-  return allCorrected ? 'corrected' : 'error';
-};
-
 const PdfTile = ({ pdf }: PdfTileProps) => {
   const [expanded, setExpanded] = useState(false);
 
-  const outcome: OutcomeType = getOutcomeFromErrors(pdf.errors);
+  const outcome: OutcomeType = getOutcomeFromErrors(pdf?.errors);
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore

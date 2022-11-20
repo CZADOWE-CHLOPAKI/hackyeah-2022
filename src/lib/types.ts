@@ -19,16 +19,18 @@ type SignData = { aaa: '' };
 export type ErrorTypeResponse = {
   error: string;
   corrected: boolean;
-  coordinates: null;
+  coordinates?: null;
 };
 
-export type SinglePdfResponse = {
-  converted: boolean;
-  size: number;
-  conversion_error: boolean;
+export type SinglePdfResponse = SinglePdfResponseCorrect;
+
+export type SinglePdfResponseCorrect = {
   errors: ErrorTypeResponse[];
   filename: string;
-  uri: string;
-  sign_data: SignData;
-  verified_ts: number;
+  converted?: boolean;
+  size?: number;
+  conversion_error?: boolean;
+  uri?: string;
+  sign_data?: SignData;
+  verified_ts?: number;
 };
